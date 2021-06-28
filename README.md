@@ -5,7 +5,7 @@ Corona virus, one of the biggest pandemic that has stunned the whole world to da
 The program focuses on scraping data from a well reknowned and reliable source, [**_worldometers_**](https://www.worldometers.info/coronavirus/). The tabular data is scraped and stored as CSV using pandas dataframe. Then operations are performed on the stored data.  The Covid data is visualized as pie graph, country wise. Reload functionality ensures that live data of that particular instance is scraped, upon manual reloading.
 
 
-### Credits - [**_worldometers_**](https://www.worldometers.info/coronavirus/)
+### Credits - [**_Worldometers_**](https://www.worldometers.info/coronavirus/)
 ### Stay home, Stay safe! 
 
 
