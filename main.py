@@ -1,14 +1,12 @@
 import pandas as pd
 import numpy as np
 from bs4 import BeautifulSoup as soup
-from datetime import date, datetime
 from urllib.request import Request, urlopen
 import time
 from tkinter import *
 from tkinter import ttk
 import matplotlib.pyplot as plt
-from matplotlib.figure import Figure
-from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg, NavigationToolbar2Tk)
+
 
 def web_scraper():
     url="https://www.worldometers.info/coronavirus/"
