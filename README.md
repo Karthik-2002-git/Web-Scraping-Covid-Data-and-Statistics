@@ -1,5 +1,5 @@
 # About
-Corona virus, one of the biggest pandemic that has stunned the whole world to danger. It is one of the trending News, currently. This program fetches and shows the live covid data. The code is organized into 2 sections - Scraping data, Plotting data.
+Corona virus, one of the biggest pandemic that has stunned the whole world to danger. The #1 trending News, currently. This program fetches and shows the live covid data. The code is organized into 2 sections - Scraping data, Plotting data.
 
 
 
