@@ -2,10 +2,10 @@ import pandas as pd
 import numpy as np
 from bs4 import BeautifulSoup as soup
 from urllib.request import Request, urlopen
-import time
 from tkinter import *
 from tkinter import ttk
 import matplotlib.pyplot as plt
+
 
 
 def web_scraper():
@@ -51,77 +51,21 @@ def web_scraper():
     #print(df)
     df.to_csv('covid stats.csv')
 
-
-
-def quote():
-    global win1
-    win1 = Tk()
-    win1.geometry("600x400")
-    win1.resizable(False, False)
-    win1.configure(bg="black")
-    text1 = Label(win1, text="We  are  in  this  Together - \nand we will get through this,\nTogether",
-                  font=("Times", 30, "bold italic"))
-    text1.place(relx=0.5, rely=0.5, anchor='center')
-    text1.config(fg="white")
-    text1.config(bg="black")
-
-    win1.after(3500, lambda: home())
-    win1.mainloop()
-
-
-def home():
-    win1.destroy()
-    win2 = Tk()
-    win2.title('Plotting in Tkinter')
-    win2.geometry("600x400")
-    win2.resizable(False, False)
-    win2.configure(bg="black")
-
-    l1 = Label(win2, text="Select/Enter country  - ", font=("Arial", 15, "bold"))
-    l1.config(fg="white")
-    l1.config(bg="black")
-    l1.place(x=80, y=100)
-
-    n = StringVar()
-    select_country = ttk.Combobox(win2, width=20, textvariable=n, font=("Arial", 13))
-
-    global countries_list
-    countries_list = countries()
-
-    select_country['values'] = tuple(countries_list)
-    select_country.place(x=310, y=105)
-    select_country.current(countries_list.index("India"))
-
-    fetch_data = Button(win2, command=lambda: show_data(n.get()), text="Show Data", width=10, font=("Arial", 15))
-    fetch_data.place(x=60, y=190)
-
-    plot_graph = Button(win2, command=lambda: plot_data(n.get()), text="Plot Graph", width=10, font=("Arial", 15))
-    plot_graph.place(x=240, y=190)
-
-    reload = Button(win2, command=lambda: web_scraper(), text="Reload", width=10, font=("Arial", 15))
-    reload.place(x=420, y=190)
-
-    credits= Label(win2, text="Credits -  \"Worldometers\"", font=("Arial", 15, "bold"))
-    credits.place(x=175, y=300)
-    credits.config(fg="navajo white")
-    credits.config(bg="black")
-    win2.mainloop()
-
-
-def to_roundedoff_string(x):
-    x = str(x)
-    if len(x) == 3 or (len(x) == 4 and x[2] == '.'):
-        x += '0'
-    x += '%'
-    return x
-
+def countries():
+    df = pd.read_csv('covid stats.csv')
+    l = []
+    for x in df.index:
+        if df.loc[x, "Country"] == df.loc[x, "Country"] and df.loc[x, "Country"] != "Total:":  # removing NaN
+            l.append(df.loc[x, "Country"])
+    l.sort()
+    l.remove("World")
+    return l
 
 def fetch_data(country, operation):
     df = pd.read_csv('covid stats.csv')
     for x in df.index:
 
         if df.loc[x, "Country"] == country:
-
             cases = int(df.loc[x, "Total Cases"])
             population = int(df.loc[x, "Population"])
             deaths = int(df.loc[x, "Total Deaths"])
@@ -155,6 +99,7 @@ def plot_data(country):
         print("Data unavailable")
         return
 
+
     data1 = np.array([cases, population - cases])
     data2 = np.array([deaths, recovered, active])
 
@@ -187,17 +132,8 @@ def plot_data(country):
     ax2.pie(data2, labels=labels2, explode=labels2_explode, colors=colors2, startangle=10)
     ax1.legend(["Total Cases", "Unaffected"], loc='lower center', bbox_to_anchor=(0.45, -0.25), ncol=1)
     ax2.legend(["Deaths", "Recovered", "Active Cases"], loc='lower center', bbox_to_anchor=(0.5, -0.25), ncol=1)
+
     plt.show()
-
-
-def countries():
-    df = pd.read_csv('covid stats.csv')
-    l = []
-    for x in df.index:
-        if df.loc[x, "Country"] == df.loc[x, "Country"] and df.loc[x, "Country"] != "Total:":  # removing NaN
-            l.append(df.loc[x, "Country"])
-    l.sort()
-    return l
 
 
 def show_data(country):
@@ -315,6 +251,66 @@ def show_data(country):
     l13.place(x=120, y=370)
 
     win3.mainloop()
+
+def to_roundedoff_string(x):
+    x = str(x)
+    if len(x) == 3 or (len(x) == 4 and x[2] == '.'):
+        x += '0'
+    x += '%'
+    return x
+
+def quote():
+    global win1
+    win1 = Tk()
+    win1.geometry("600x400")
+    win1.resizable(False, False)
+    win1.configure(bg="black")
+    text1 = Label(win1, text="We  are  in  this  Together - \nand we will get through this,\nTogether",
+                  font=("Times", 30, "bold italic"))
+    text1.place(relx=0.5, rely=0.5, anchor='center')
+    text1.config(fg="white")
+    text1.config(bg="black")
+
+    win1.after(3500, lambda: home())
+    win1.mainloop()
+
+def home():
+    win1.destroy()
+    win2 = Tk()
+    win2.title('Menu')
+    win2.geometry("600x400")
+    win2.resizable(False, False)
+    win2.configure(bg="black")
+
+    l1 = Label(win2, text="Select/Enter country  - ", font=("Arial", 15, "bold"))
+    l1.config(fg="white")
+    l1.config(bg="black")
+    l1.place(x=80, y=100)
+
+    n = StringVar()
+    select_country = ttk.Combobox(win2, width=20, textvariable=n, font=("Arial", 13))
+
+    global countries_list
+    countries_list = countries()
+
+    select_country['values'] = tuple(countries_list)
+    select_country.place(x=310, y=105)
+    select_country.current(countries_list.index("India"))
+
+    fetch_data = Button(win2, command=lambda: show_data(n.get()), text="Show Data", width=10, font=("Arial", 15))
+    fetch_data.place(x=60, y=190)
+
+    plot_graph = Button(win2, command=lambda: plot_data(n.get()), text="Plot Graph", width=10, font=("Arial", 15))
+    plot_graph.place(x=240, y=190)
+
+    reload = Button(win2, command=lambda: web_scraper(), text="Reload", width=10, font=("Arial", 15))
+    reload.place(x=420, y=190)
+
+    credits= Label(win2, text="Credits -  \"Worldometers\"", font=("Arial", 15, "bold"))
+    credits.place(x=175, y=300)
+    credits.config(fg="navajo white")
+    credits.config(bg="black")
+    win2.mainloop()
 
 web_scraper()
 quote()
