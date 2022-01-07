@@ -14,7 +14,7 @@ The code is organized into 2 sections - Scraping data, Plotting data. It focuses
     pip install pandas
     pip install numpy
     pip install matplotlib
-### Credits - [**_Worldometers_**](https://www.worldometers.info/coronavirus/)  [**_Edureka_**](https://www.edureka.co/)
+### Credits - [**_Worldometers_**](https://www.worldometers.info/coronavirus/)  [**Edureka_**](https://www.edureka.co/)
 
 ### Stay home, Stay safe! 
 
